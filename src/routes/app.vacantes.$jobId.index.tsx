@@ -82,12 +82,12 @@ function JobDetail() {
             <Section title="Descripción"><p className="text-sm text-foreground/90">{job.description}</p></Section>
             <Section title="Responsabilidades">
               <ul className="list-disc pl-5 text-sm text-foreground/90 space-y-1">
-                {job.responsibilities.map((r) => <li key={r}>{r}</li>)}
+                {job.responsibilities.map((r: string) => <li key={r}>{r}</li>)}
               </ul>
             </Section>
             <Section title="Requisitos">
               <ul className="list-disc pl-5 text-sm text-foreground/90 space-y-1">
-                {job.requirements.map((r) => <li key={r}>{r}</li>)}
+                {job.requirements.map((r: string) => <li key={r}>{r}</li>)}
               </ul>
             </Section>
           </div>

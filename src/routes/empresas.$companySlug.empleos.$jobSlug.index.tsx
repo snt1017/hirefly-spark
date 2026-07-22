@@ -51,17 +51,17 @@ function PublicJobDetail() {
           <Section title="Descripción"><p className="text-foreground/90">{job.description}</p></Section>
           <Section title="Responsabilidades">
             <ul className="list-disc space-y-1 pl-5 text-foreground/90">
-              {job.responsibilities.map((r) => <li key={r}>{r}</li>)}
+              {job.responsibilities.map((r: string) => <li key={r}>{r}</li>)}
             </ul>
           </Section>
           <Section title="Requisitos">
             <ul className="list-disc space-y-1 pl-5 text-foreground/90">
-              {job.requirements.map((r) => <li key={r}>{r}</li>)}
+              {job.requirements.map((r: string) => <li key={r}>{r}</li>)}
             </ul>
           </Section>
           <Section title="Beneficios">
             <ul className="list-disc space-y-1 pl-5 text-foreground/90">
-              {job.benefits.map((r) => <li key={r}>{r}</li>)}
+              {job.benefits.map((r: string) => <li key={r}>{r}</li>)}
             </ul>
           </Section>
 

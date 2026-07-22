@@ -14,6 +14,15 @@ import { Route as IniciarSesionRouteImport } from './routes/iniciar-sesion'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppVacantesIndexRouteImport } from './routes/app.vacantes.index'
+import { Route as AppConfiguracionEmpresaRouteImport } from './routes/app.configuracion.empresa'
+import { Route as AppCandidatosCandidateIdRouteImport } from './routes/app.candidatos.$candidateId'
+import { Route as EmpresasCompanySlugEmpleosIndexRouteImport } from './routes/empresas.$companySlug.empleos.index'
+import { Route as AppVacantesJobIdIndexRouteImport } from './routes/app.vacantes.$jobId.index'
+import { Route as AppVacantesJobIdCandidatosRouteImport } from './routes/app.vacantes.$jobId.candidatos'
+import { Route as EmpresasCompanySlugEmpleosJobSlugIndexRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.index'
+import { Route as EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.confirmacion'
+import { Route as EmpresasCompanySlugEmpleosJobSlugAplicarRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.aplicar'
 
 const RegistroRoute = RegistroRouteImport.update({
   id: '/registro',
@@ -40,6 +49,57 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppVacantesIndexRoute = AppVacantesIndexRouteImport.update({
+  id: '/vacantes/',
+  path: '/vacantes/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppConfiguracionEmpresaRoute = AppConfiguracionEmpresaRouteImport.update({
+  id: '/configuracion/empresa',
+  path: '/configuracion/empresa',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCandidatosCandidateIdRoute =
+  AppCandidatosCandidateIdRouteImport.update({
+    id: '/candidatos/$candidateId',
+    path: '/candidatos/$candidateId',
+    getParentRoute: () => AppRoute,
+  } as any)
+const EmpresasCompanySlugEmpleosIndexRoute =
+  EmpresasCompanySlugEmpleosIndexRouteImport.update({
+    id: '/empresas/$companySlug/empleos/',
+    path: '/empresas/$companySlug/empleos/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AppVacantesJobIdIndexRoute = AppVacantesJobIdIndexRouteImport.update({
+  id: '/vacantes/$jobId/',
+  path: '/vacantes/$jobId/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVacantesJobIdCandidatosRoute =
+  AppVacantesJobIdCandidatosRouteImport.update({
+    id: '/vacantes/$jobId/candidatos',
+    path: '/vacantes/$jobId/candidatos',
+    getParentRoute: () => AppRoute,
+  } as any)
+const EmpresasCompanySlugEmpleosJobSlugIndexRoute =
+  EmpresasCompanySlugEmpleosJobSlugIndexRouteImport.update({
+    id: '/empresas/$companySlug/empleos/$jobSlug/',
+    path: '/empresas/$companySlug/empleos/$jobSlug/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute =
+  EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport.update({
+    id: '/empresas/$companySlug/empleos/$jobSlug/confirmacion',
+    path: '/empresas/$companySlug/empleos/$jobSlug/confirmacion',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EmpresasCompanySlugEmpleosJobSlugAplicarRoute =
+  EmpresasCompanySlugEmpleosJobSlugAplicarRouteImport.update({
+    id: '/empresas/$companySlug/empleos/$jobSlug/aplicar',
+    path: '/empresas/$companySlug/empleos/$jobSlug/aplicar',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,12 +107,30 @@ export interface FileRoutesByFullPath {
   '/iniciar-sesion': typeof IniciarSesionRoute
   '/registro': typeof RegistroRoute
   '/app/': typeof AppIndexRoute
+  '/app/candidatos/$candidateId': typeof AppCandidatosCandidateIdRoute
+  '/app/configuracion/empresa': typeof AppConfiguracionEmpresaRoute
+  '/app/vacantes/': typeof AppVacantesIndexRoute
+  '/app/vacantes/$jobId/candidatos': typeof AppVacantesJobIdCandidatosRoute
+  '/app/vacantes/$jobId/': typeof AppVacantesJobIdIndexRoute
+  '/empresas/$companySlug/empleos/': typeof EmpresasCompanySlugEmpleosIndexRoute
+  '/empresas/$companySlug/empleos/$jobSlug/aplicar': typeof EmpresasCompanySlugEmpleosJobSlugAplicarRoute
+  '/empresas/$companySlug/empleos/$jobSlug/confirmacion': typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute
+  '/empresas/$companySlug/empleos/$jobSlug/': typeof EmpresasCompanySlugEmpleosJobSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/iniciar-sesion': typeof IniciarSesionRoute
   '/registro': typeof RegistroRoute
   '/app': typeof AppIndexRoute
+  '/app/candidatos/$candidateId': typeof AppCandidatosCandidateIdRoute
+  '/app/configuracion/empresa': typeof AppConfiguracionEmpresaRoute
+  '/app/vacantes': typeof AppVacantesIndexRoute
+  '/app/vacantes/$jobId/candidatos': typeof AppVacantesJobIdCandidatosRoute
+  '/app/vacantes/$jobId': typeof AppVacantesJobIdIndexRoute
+  '/empresas/$companySlug/empleos': typeof EmpresasCompanySlugEmpleosIndexRoute
+  '/empresas/$companySlug/empleos/$jobSlug/aplicar': typeof EmpresasCompanySlugEmpleosJobSlugAplicarRoute
+  '/empresas/$companySlug/empleos/$jobSlug/confirmacion': typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute
+  '/empresas/$companySlug/empleos/$jobSlug': typeof EmpresasCompanySlugEmpleosJobSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,13 +139,64 @@ export interface FileRoutesById {
   '/iniciar-sesion': typeof IniciarSesionRoute
   '/registro': typeof RegistroRoute
   '/app/': typeof AppIndexRoute
+  '/app/candidatos/$candidateId': typeof AppCandidatosCandidateIdRoute
+  '/app/configuracion/empresa': typeof AppConfiguracionEmpresaRoute
+  '/app/vacantes/': typeof AppVacantesIndexRoute
+  '/app/vacantes/$jobId/candidatos': typeof AppVacantesJobIdCandidatosRoute
+  '/app/vacantes/$jobId/': typeof AppVacantesJobIdIndexRoute
+  '/empresas/$companySlug/empleos/': typeof EmpresasCompanySlugEmpleosIndexRoute
+  '/empresas/$companySlug/empleos/$jobSlug/aplicar': typeof EmpresasCompanySlugEmpleosJobSlugAplicarRoute
+  '/empresas/$companySlug/empleos/$jobSlug/confirmacion': typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute
+  '/empresas/$companySlug/empleos/$jobSlug/': typeof EmpresasCompanySlugEmpleosJobSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/iniciar-sesion' | '/registro' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/iniciar-sesion'
+    | '/registro'
+    | '/app/'
+    | '/app/candidatos/$candidateId'
+    | '/app/configuracion/empresa'
+    | '/app/vacantes/'
+    | '/app/vacantes/$jobId/candidatos'
+    | '/app/vacantes/$jobId/'
+    | '/empresas/$companySlug/empleos/'
+    | '/empresas/$companySlug/empleos/$jobSlug/aplicar'
+    | '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+    | '/empresas/$companySlug/empleos/$jobSlug/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/iniciar-sesion' | '/registro' | '/app'
-  id: '__root__' | '/' | '/app' | '/iniciar-sesion' | '/registro' | '/app/'
+  to:
+    | '/'
+    | '/iniciar-sesion'
+    | '/registro'
+    | '/app'
+    | '/app/candidatos/$candidateId'
+    | '/app/configuracion/empresa'
+    | '/app/vacantes'
+    | '/app/vacantes/$jobId/candidatos'
+    | '/app/vacantes/$jobId'
+    | '/empresas/$companySlug/empleos'
+    | '/empresas/$companySlug/empleos/$jobSlug/aplicar'
+    | '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+    | '/empresas/$companySlug/empleos/$jobSlug'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/iniciar-sesion'
+    | '/registro'
+    | '/app/'
+    | '/app/candidatos/$candidateId'
+    | '/app/configuracion/empresa'
+    | '/app/vacantes/'
+    | '/app/vacantes/$jobId/candidatos'
+    | '/app/vacantes/$jobId/'
+    | '/empresas/$companySlug/empleos/'
+    | '/empresas/$companySlug/empleos/$jobSlug/aplicar'
+    | '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+    | '/empresas/$companySlug/empleos/$jobSlug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -75,6 +204,10 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   IniciarSesionRoute: typeof IniciarSesionRoute
   RegistroRoute: typeof RegistroRoute
+  EmpresasCompanySlugEmpleosIndexRoute: typeof EmpresasCompanySlugEmpleosIndexRoute
+  EmpresasCompanySlugEmpleosJobSlugAplicarRoute: typeof EmpresasCompanySlugEmpleosJobSlugAplicarRoute
+  EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute: typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute
+  EmpresasCompanySlugEmpleosJobSlugIndexRoute: typeof EmpresasCompanySlugEmpleosJobSlugIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -114,15 +247,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/vacantes/': {
+      id: '/app/vacantes/'
+      path: '/vacantes'
+      fullPath: '/app/vacantes/'
+      preLoaderRoute: typeof AppVacantesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/configuracion/empresa': {
+      id: '/app/configuracion/empresa'
+      path: '/configuracion/empresa'
+      fullPath: '/app/configuracion/empresa'
+      preLoaderRoute: typeof AppConfiguracionEmpresaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/candidatos/$candidateId': {
+      id: '/app/candidatos/$candidateId'
+      path: '/candidatos/$candidateId'
+      fullPath: '/app/candidatos/$candidateId'
+      preLoaderRoute: typeof AppCandidatosCandidateIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/empresas/$companySlug/empleos/': {
+      id: '/empresas/$companySlug/empleos/'
+      path: '/empresas/$companySlug/empleos'
+      fullPath: '/empresas/$companySlug/empleos/'
+      preLoaderRoute: typeof EmpresasCompanySlugEmpleosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/vacantes/$jobId/': {
+      id: '/app/vacantes/$jobId/'
+      path: '/vacantes/$jobId'
+      fullPath: '/app/vacantes/$jobId/'
+      preLoaderRoute: typeof AppVacantesJobIdIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/vacantes/$jobId/candidatos': {
+      id: '/app/vacantes/$jobId/candidatos'
+      path: '/vacantes/$jobId/candidatos'
+      fullPath: '/app/vacantes/$jobId/candidatos'
+      preLoaderRoute: typeof AppVacantesJobIdCandidatosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/empresas/$companySlug/empleos/$jobSlug/': {
+      id: '/empresas/$companySlug/empleos/$jobSlug/'
+      path: '/empresas/$companySlug/empleos/$jobSlug'
+      fullPath: '/empresas/$companySlug/empleos/$jobSlug/'
+      preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empresas/$companySlug/empleos/$jobSlug/confirmacion': {
+      id: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+      path: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+      fullPath: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+      preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empresas/$companySlug/empleos/$jobSlug/aplicar': {
+      id: '/empresas/$companySlug/empleos/$jobSlug/aplicar'
+      path: '/empresas/$companySlug/empleos/$jobSlug/aplicar'
+      fullPath: '/empresas/$companySlug/empleos/$jobSlug/aplicar'
+      preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugAplicarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
+  AppCandidatosCandidateIdRoute: typeof AppCandidatosCandidateIdRoute
+  AppConfiguracionEmpresaRoute: typeof AppConfiguracionEmpresaRoute
+  AppVacantesIndexRoute: typeof AppVacantesIndexRoute
+  AppVacantesJobIdCandidatosRoute: typeof AppVacantesJobIdCandidatosRoute
+  AppVacantesJobIdIndexRoute: typeof AppVacantesJobIdIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppIndexRoute: AppIndexRoute,
+  AppCandidatosCandidateIdRoute: AppCandidatosCandidateIdRoute,
+  AppConfiguracionEmpresaRoute: AppConfiguracionEmpresaRoute,
+  AppVacantesIndexRoute: AppVacantesIndexRoute,
+  AppVacantesJobIdCandidatosRoute: AppVacantesJobIdCandidatosRoute,
+  AppVacantesJobIdIndexRoute: AppVacantesJobIdIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -132,6 +338,13 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   IniciarSesionRoute: IniciarSesionRoute,
   RegistroRoute: RegistroRoute,
+  EmpresasCompanySlugEmpleosIndexRoute: EmpresasCompanySlugEmpleosIndexRoute,
+  EmpresasCompanySlugEmpleosJobSlugAplicarRoute:
+    EmpresasCompanySlugEmpleosJobSlugAplicarRoute,
+  EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute:
+    EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute,
+  EmpresasCompanySlugEmpleosJobSlugIndexRoute:
+    EmpresasCompanySlugEmpleosJobSlugIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
