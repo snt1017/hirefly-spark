@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { Upload, RotateCcw, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/app/configuracion/empresa")({
-  component: CompanySettings;
+  component: CompanySettings,
 });
 
 function CompanySettings() {
