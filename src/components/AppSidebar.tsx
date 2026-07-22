@@ -18,12 +18,12 @@ import { demoUser } from "@/mocks/company";
 import { signOut } from "@/lib/session";
 import { toast } from "sonner";
 
-const items = [
+const items: { title: string; url: string; icon: typeof Home; exact?: boolean }[] = [
   { title: "Inicio", url: "/app", icon: Home, exact: true },
   { title: "Vacantes", url: "/app/vacantes", icon: Briefcase },
   { title: "Candidatos", url: "/app/vacantes", icon: Users },
   { title: "Configuración", url: "/app/configuracion/empresa", icon: Settings },
-] as const;
+];
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
