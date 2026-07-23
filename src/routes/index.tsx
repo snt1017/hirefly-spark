@@ -61,7 +61,7 @@ function Landing() {
             Plataforma para equipos de talento
           </span>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            Reclutamiento más organizado, de principio a fin.
+            Reclutamiento más organizado, de principio a fin!!!
           </h1>
           <p className="mt-4 max-w-lg text-lg text-muted-foreground">
             Hirefly ayuda a tu empresa a publicar vacantes, recibir candidatos y hacer seguimiento a cada proceso desde un solo lugar.
