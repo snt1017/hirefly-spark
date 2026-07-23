@@ -9,29 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegistroRouteImport } from './routes/registro'
-import { Route as IniciarSesionRouteImport } from './routes/iniciar-sesion'
-import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as IniciarSesionRouteImport } from './routes/iniciar-sesion'
+import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as AppIndexRouteImport } from './routes/app.index'
-import { Route as AppVacantesIndexRouteImport } from './routes/app.vacantes.index'
-import { Route as AppConfiguracionEmpresaRouteImport } from './routes/app.configuracion.empresa'
 import { Route as AppCandidatosCandidateIdRouteImport } from './routes/app.candidatos.$candidateId'
-import { Route as EmpresasCompanySlugEmpleosIndexRouteImport } from './routes/empresas.$companySlug.empleos.index'
+import { Route as AppConfiguracionEmpresaRouteImport } from './routes/app.configuracion.empresa'
+import { Route as AppVacantesIndexRouteImport } from './routes/app.vacantes.index'
 import { Route as AppVacantesJobIdIndexRouteImport } from './routes/app.vacantes.$jobId.index'
 import { Route as AppVacantesJobIdCandidatosRouteImport } from './routes/app.vacantes.$jobId.candidatos'
+import { Route as EmpresasCompanySlugEmpleosIndexRouteImport } from './routes/empresas.$companySlug.empleos.index'
 import { Route as EmpresasCompanySlugEmpleosJobSlugIndexRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.index'
-import { Route as EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.confirmacion'
 import { Route as EmpresasCompanySlugEmpleosJobSlugAplicarRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.aplicar'
+import { Route as EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport } from './routes/empresas.$companySlug.empleos.$jobSlug.confirmacion'
 
-const RegistroRoute = RegistroRouteImport.update({
-  id: '/registro',
-  path: '/registro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IniciarSesionRoute = IniciarSesionRouteImport.update({
-  id: '/iniciar-sesion',
-  path: '/iniciar-sesion',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -39,24 +34,19 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const IniciarSesionRoute = IniciarSesionRouteImport.update({
+  id: '/iniciar-sesion',
+  path: '/iniciar-sesion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistroRoute = RegistroRouteImport.update({
+  id: '/registro',
+  path: '/registro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppVacantesIndexRoute = AppVacantesIndexRouteImport.update({
-  id: '/vacantes/',
-  path: '/vacantes/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppConfiguracionEmpresaRoute = AppConfiguracionEmpresaRouteImport.update({
-  id: '/configuracion/empresa',
-  path: '/configuracion/empresa',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCandidatosCandidateIdRoute =
@@ -65,12 +55,16 @@ const AppCandidatosCandidateIdRoute =
     path: '/candidatos/$candidateId',
     getParentRoute: () => AppRoute,
   } as any)
-const EmpresasCompanySlugEmpleosIndexRoute =
-  EmpresasCompanySlugEmpleosIndexRouteImport.update({
-    id: '/empresas/$companySlug/empleos/',
-    path: '/empresas/$companySlug/empleos/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const AppConfiguracionEmpresaRoute = AppConfiguracionEmpresaRouteImport.update({
+  id: '/configuracion/empresa',
+  path: '/configuracion/empresa',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVacantesIndexRoute = AppVacantesIndexRouteImport.update({
+  id: '/vacantes/',
+  path: '/vacantes/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppVacantesJobIdIndexRoute = AppVacantesJobIdIndexRouteImport.update({
   id: '/vacantes/$jobId/',
   path: '/vacantes/$jobId/',
@@ -82,22 +76,28 @@ const AppVacantesJobIdCandidatosRoute =
     path: '/vacantes/$jobId/candidatos',
     getParentRoute: () => AppRoute,
   } as any)
+const EmpresasCompanySlugEmpleosIndexRoute =
+  EmpresasCompanySlugEmpleosIndexRouteImport.update({
+    id: '/empresas/$companySlug/empleos/',
+    path: '/empresas/$companySlug/empleos/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EmpresasCompanySlugEmpleosJobSlugIndexRoute =
   EmpresasCompanySlugEmpleosJobSlugIndexRouteImport.update({
     id: '/empresas/$companySlug/empleos/$jobSlug/',
     path: '/empresas/$companySlug/empleos/$jobSlug/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute =
-  EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport.update({
-    id: '/empresas/$companySlug/empleos/$jobSlug/confirmacion',
-    path: '/empresas/$companySlug/empleos/$jobSlug/confirmacion',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const EmpresasCompanySlugEmpleosJobSlugAplicarRoute =
   EmpresasCompanySlugEmpleosJobSlugAplicarRouteImport.update({
     id: '/empresas/$companySlug/empleos/$jobSlug/aplicar',
     path: '/empresas/$companySlug/empleos/$jobSlug/aplicar',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EmpresasCompanySlugEmpleosJobSlugConfirmacionRoute =
+  EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport.update({
+    id: '/empresas/$companySlug/empleos/$jobSlug/confirmacion',
+    path: '/empresas/$companySlug/empleos/$jobSlug/confirmacion',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -212,18 +212,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/registro': {
-      id: '/registro'
-      path: '/registro'
-      fullPath: '/registro'
-      preLoaderRoute: typeof RegistroRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/iniciar-sesion': {
-      id: '/iniciar-sesion'
-      path: '/iniciar-sesion'
-      fullPath: '/iniciar-sesion'
-      preLoaderRoute: typeof IniciarSesionRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app': {
@@ -233,11 +226,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/iniciar-sesion': {
+      id: '/iniciar-sesion'
+      path: '/iniciar-sesion'
+      fullPath: '/iniciar-sesion'
+      preLoaderRoute: typeof IniciarSesionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registro': {
+      id: '/registro'
+      path: '/registro'
+      fullPath: '/registro'
+      preLoaderRoute: typeof RegistroRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -247,11 +247,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/vacantes/': {
-      id: '/app/vacantes/'
-      path: '/vacantes'
-      fullPath: '/app/vacantes/'
-      preLoaderRoute: typeof AppVacantesIndexRouteImport
+    '/app/candidatos/$candidateId': {
+      id: '/app/candidatos/$candidateId'
+      path: '/candidatos/$candidateId'
+      fullPath: '/app/candidatos/$candidateId'
+      preLoaderRoute: typeof AppCandidatosCandidateIdRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/configuracion/empresa': {
@@ -261,19 +261,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppConfiguracionEmpresaRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/candidatos/$candidateId': {
-      id: '/app/candidatos/$candidateId'
-      path: '/candidatos/$candidateId'
-      fullPath: '/app/candidatos/$candidateId'
-      preLoaderRoute: typeof AppCandidatosCandidateIdRouteImport
+    '/app/vacantes/': {
+      id: '/app/vacantes/'
+      path: '/vacantes'
+      fullPath: '/app/vacantes/'
+      preLoaderRoute: typeof AppVacantesIndexRouteImport
       parentRoute: typeof AppRoute
-    }
-    '/empresas/$companySlug/empleos/': {
-      id: '/empresas/$companySlug/empleos/'
-      path: '/empresas/$companySlug/empleos'
-      fullPath: '/empresas/$companySlug/empleos/'
-      preLoaderRoute: typeof EmpresasCompanySlugEmpleosIndexRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/app/vacantes/$jobId/': {
       id: '/app/vacantes/$jobId/'
@@ -289,6 +282,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppVacantesJobIdCandidatosRouteImport
       parentRoute: typeof AppRoute
     }
+    '/empresas/$companySlug/empleos/': {
+      id: '/empresas/$companySlug/empleos/'
+      path: '/empresas/$companySlug/empleos'
+      fullPath: '/empresas/$companySlug/empleos/'
+      preLoaderRoute: typeof EmpresasCompanySlugEmpleosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/empresas/$companySlug/empleos/$jobSlug/': {
       id: '/empresas/$companySlug/empleos/$jobSlug/'
       path: '/empresas/$companySlug/empleos/$jobSlug'
@@ -296,18 +296,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/empresas/$companySlug/empleos/$jobSlug/confirmacion': {
-      id: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
-      path: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
-      fullPath: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
-      preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/empresas/$companySlug/empleos/$jobSlug/aplicar': {
       id: '/empresas/$companySlug/empleos/$jobSlug/aplicar'
       path: '/empresas/$companySlug/empleos/$jobSlug/aplicar'
       fullPath: '/empresas/$companySlug/empleos/$jobSlug/aplicar'
       preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugAplicarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empresas/$companySlug/empleos/$jobSlug/confirmacion': {
+      id: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+      path: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+      fullPath: '/empresas/$companySlug/empleos/$jobSlug/confirmacion'
+      preLoaderRoute: typeof EmpresasCompanySlugEmpleosJobSlugConfirmacionRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -349,3 +349,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

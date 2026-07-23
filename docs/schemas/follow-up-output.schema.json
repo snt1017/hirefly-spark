@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hirefly.local/schemas/follow-up-output.schema.json",
+  "title": "Candidate Follow-up Draft Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subject",
+    "body",
+    "missing_information",
+    "warnings"
+  ],
+  "properties": {
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

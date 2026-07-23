@@ -1,0 +1,221 @@
+{
+  "package": "hirefly-codex-documentation",
+  "generated_on": "2026-07-21",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 5718,
+      "sha256": "dd41c3fbb42eb3d866972227432e41439db7927062c74cf3572673b001328f87"
+    },
+    {
+      "path": "PROJECT_MANIFEST.yaml",
+      "bytes": 3493,
+      "sha256": "f1355d719bb80d06366662c2426608e1bbb9b2454d5cf82a39aabd7221901749"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3210,
+      "sha256": "571206c51bc4c982e9a8ab808a8ef11d429a0cf68740c316a0779906a4bc80e6"
+    },
+    {
+      "path": "checklists/codex-task-template.md",
+      "bytes": 742,
+      "sha256": "863b1f32265cd65eb93c3b87ba61b090b56e0a78e708e23a2f7ef4d2ccf2e9e5"
+    },
+    {
+      "path": "checklists/definition-of-done.md",
+      "bytes": 1395,
+      "sha256": "73c7595911e29689128171db2258378b960277b6f5431acc5e29d8c3e6962d75"
+    },
+    {
+      "path": "checklists/pull-request-checklist.md",
+      "bytes": 830,
+      "sha256": "cb4dbe78897ae3aca506d64bee9a32abe0279c99226eb6f805dcc29ca53c2f7c"
+    },
+    {
+      "path": "checklists/release-checklist.md",
+      "bytes": 1108,
+      "sha256": "5f05b367925491c2a360c077a5a7c42d55f4b377c516194dde7226f4d66e2908"
+    },
+    {
+      "path": "contracts/event-and-audit-contracts.md",
+      "bytes": 1538,
+      "sha256": "47323e5ec6b67f37fbe6acbaf35ad2b70576c27e356fed614109805a9fe7320e"
+    },
+    {
+      "path": "contracts/processing-job-contracts.md",
+      "bytes": 1940,
+      "sha256": "7e12d96663013460297c352c76c8197ac1c06bb262266c61aa786c83f06f1e03"
+    },
+    {
+      "path": "contracts/public-api-contracts.md",
+      "bytes": 3351,
+      "sha256": "ab4d90873c8dd0c499a83ce8dbd2d14cf1f78908d306ef01ed3910b72fe83aee"
+    },
+    {
+      "path": "database/data-dictionary.md",
+      "bytes": 17257,
+      "sha256": "fb5fefafc3fc59b1f36a1fda3b450ef58b528ef4fc733bd5c65457f1fae157a9"
+    },
+    {
+      "path": "database/migration-plan.md",
+      "bytes": 1711,
+      "sha256": "c534cd83ca65fa422930e53481adc5f9a8abfc53e81431bab7b626e6070fdcb3"
+    },
+    {
+      "path": "database/rls-test-matrix.md",
+      "bytes": 2327,
+      "sha256": "e8c961cf7cdd3e0cf3bfee30ae5ed16d910a920846ad792bdab3e358a21f2392"
+    },
+    {
+      "path": "database/seed-plan.md",
+      "bytes": 890,
+      "sha256": "bf5fb2989d9fde794bf33c11bb42e67f804da379563a46ef0997576094eea718"
+    },
+    {
+      "path": "docs/00-project-overview.md",
+      "bytes": 3359,
+      "sha256": "1592ce32a0169bc96e2b0b075d1ec23bd938a95b85f668db3c53604104e7b4bc"
+    },
+    {
+      "path": "docs/01-product-requirements.md",
+      "bytes": 4646,
+      "sha256": "ac39e2cb12d0890a6297b7c801600f5853d8de22fa2b66d0f9402532999da454"
+    },
+    {
+      "path": "docs/02-system-architecture.md",
+      "bytes": 4015,
+      "sha256": "67b80eb36ed6b965a68b8fcf20a3792c0e27edf195c8d4ec539d508eb0b5c8cc"
+    },
+    {
+      "path": "docs/03-repository-architecture.md",
+      "bytes": 3635,
+      "sha256": "ba409d9c0102aee7c15f125685525ec8817595ee238614b2075f2185d16c87e6"
+    },
+    {
+      "path": "docs/04-domain-and-data-model.md",
+      "bytes": 4211,
+      "sha256": "73c6eb985b7f7a34ee63959d5ad1cbb61a3b2b415bee1d1fcb0abcf6c37a210d"
+    },
+    {
+      "path": "docs/05-database-rls-storage.md",
+      "bytes": 3628,
+      "sha256": "5484ab46bcccdbc66ce0c9a70c4557a4ea256b004d38d84b189248b352b9ed40"
+    },
+    {
+      "path": "docs/06-frontend-specification.md",
+      "bytes": 3316,
+      "sha256": "f0cdf99e8a3f28213810ba784eb9079e0cfb5a2a13ae397ac2751624dd780a3e"
+    },
+    {
+      "path": "docs/07-api-and-edge-contracts.md",
+      "bytes": 2535,
+      "sha256": "71389e3e5e8782e1bc9b048aa89c7f773bc3af88f8fd8dbccc48225e79a1241e"
+    },
+    {
+      "path": "docs/08-async-workflows-and-ai.md",
+      "bytes": 3608,
+      "sha256": "10ac8b47647b86b1c4d565e78553a5bb4cb6c25673feab1d9700c962303a6df9"
+    },
+    {
+      "path": "docs/09-security-privacy-and-ai-safety.md",
+      "bytes": 3490,
+      "sha256": "680b4d58c4a51c1f78c6c0ab33cadcd7aa117ad18fec39d6ecd1a952865b4431"
+    },
+    {
+      "path": "docs/10-testing-and-quality.md",
+      "bytes": 2600,
+      "sha256": "57bc2495b527f2c88a4367e3ae7692012a2ee8fe9e446ca0ec99050da9a9c890"
+    },
+    {
+      "path": "docs/11-observability-and-operations.md",
+      "bytes": 2358,
+      "sha256": "e4d6b5df0c1e316275bdd8cc78297399ff5dc21674d8a927d27578a50078e695"
+    },
+    {
+      "path": "docs/12-local-development-and-deployment.md",
+      "bytes": 2510,
+      "sha256": "509103a78176d9085292ebb9ffec7957928eb7ce836df38891d94440ef64998d"
+    },
+    {
+      "path": "docs/13-implementation-roadmap.md",
+      "bytes": 2888,
+      "sha256": "06e40ea77ff53453d753904304a072029b0c80c111d3afc8f533a2e77254265f"
+    },
+    {
+      "path": "docs/14-acceptance-criteria.md",
+      "bytes": 3343,
+      "sha256": "1132f03c5e140ec5794fbc01a6fecb5d8946e6e5a27288643e5638c509edd596"
+    },
+    {
+      "path": "docs/15-decisions-and-open-questions.md",
+      "bytes": 2391,
+      "sha256": "6968a3a82958e26ea1648fc0798c0dfdb26401ec5ceff4c01323de197d6d933c"
+    },
+    {
+      "path": "docs/16-glossary.md",
+      "bytes": 1621,
+      "sha256": "f01792c84c425852de7c342e8fa2f45834d1342cebe936978defbc9f38093c2d"
+    },
+    {
+      "path": "docs/17-environment-variables.md",
+      "bytes": 2262,
+      "sha256": "e7aa1995aa8a9a7b89a40798951943d9795d2596a376bac0aa28b975601dc1a7"
+    },
+    {
+      "path": "prompts/candidate-evaluator.md",
+      "bytes": 1285,
+      "sha256": "bfdd5bf7b093720090da84cfaad0cc88f93329c4ca8d538903a5446272abe4ad"
+    },
+    {
+      "path": "prompts/codex-master-prompt.md",
+      "bytes": 1961,
+      "sha256": "a1cd095db7c128ab601b5546a6781eb9d0f546ba2d25a884d6fcbd253a362c24"
+    },
+    {
+      "path": "prompts/follow-up-draft.md",
+      "bytes": 794,
+      "sha256": "a1fa66f60d2e19c8bf99d7407b37c78a02af7bc14f497be750d85249eab10257"
+    },
+    {
+      "path": "prompts/resume-parser.md",
+      "bytes": 902,
+      "sha256": "ba66f69127ff9e0bf1fce8fde95037ba650236a7545c340867e9b4f07cac7ab4"
+    },
+    {
+      "path": "references/official-documentation.md",
+      "bytes": 1494,
+      "sha256": "55313bfefd123afea71d001b7ef368a7a54aad4e34b5fa1ab3fbe4da5768f9d5"
+    },
+    {
+      "path": "references/original-data-model-es.md",
+      "bytes": 20772,
+      "sha256": "9c5023fe004a3c782b33d9d290a05baf34f91f5da0d0b7477f5c448c0821c9f0"
+    },
+    {
+      "path": "references/original-project-context-es.md",
+      "bytes": 31770,
+      "sha256": "6c42f454457f2f9585027351f789cc4875f6194e301c0a4de81ea7bfee6a761a"
+    },
+    {
+      "path": "schemas/candidate-evaluation-output.schema.json",
+      "bytes": 2204,
+      "sha256": "0b87a11b1c76649ab7eacf0c957643fd32eeb6a80511fae297ff878b67c284e9"
+    },
+    {
+      "path": "schemas/follow-up-output.schema.json",
+      "bytes": 645,
+      "sha256": "36d6a10696f29ab78e7cc3b5f768aca3f14623ecbccfce404b46ce12e8ae2201"
+    },
+    {
+      "path": "schemas/processing-job.schema.json",
+      "bytes": 959,
+      "sha256": "1269ae9564b8559bfd377b6aa942149024924974d5521b6bd7bd6b19c78b2aeb"
+    },
+    {
+      "path": "schemas/resume-parser-output.schema.json",
+      "bytes": 5250,
+      "sha256": "e1aef6dd7244c1f5509fa155d1dc707e45fe3da4eb3f691bf26e836460b27515"
+    }
+  ]
+}

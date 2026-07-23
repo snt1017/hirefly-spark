@@ -12,7 +12,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { jobs } from "@/mocks/jobs";
 import { metrics, stageDistribution } from "@/mocks/metrics";
 import { recentActivity } from "@/mocks/activity";
-import { useState } from "react";
+import { supabase } from "@/utils/supabase";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/app/")({
@@ -20,8 +21,26 @@ export const Route = createFileRoute("/app/")({
 });
 
 function Dashboard() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todosError, setTodosError] = useState<string | null>(null);
   const max = Math.max(...stageDistribution.map((s) => s.count));
   const recent = jobs.slice(0, 5);
+
+  useEffect(() => {
+    async function getTodos() {
+      const { data, error } = await supabase.from("todos").select("id, name");
+
+      if (error) {
+        setTodosError(error.message);
+        return;
+      }
+
+      setTodos(data ?? []);
+    }
+
+    void getTodos();
+  }, []);
+
   return (
     <>
       <AppHeader title="Inicio" />
@@ -73,9 +92,29 @@ function Dashboard() {
             ))}
           </div>
         </div>
+
+        <div className="rounded-xl border border-border bg-card p-6">
+          <h2 className="text-base font-semibold text-foreground">Tareas</h2>
+          {todosError ? (
+            <p className="mt-3 text-sm text-destructive">No se pudieron cargar las tareas: {todosError}</p>
+          ) : todos.length ? (
+            <ul className="mt-3 divide-y divide-border">
+              {todos.map((todo) => (
+                <li key={todo.id} className="py-3 text-sm text-foreground">{todo.name}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-sm text-muted-foreground">No hay tareas para mostrar.</p>
+          )}
+        </div>
       </main>
     </>
   );
+}
+
+interface Todo {
+  id: string;
+  name: string;
 }
 
 function NewJobButton() {

@@ -1,0 +1,126 @@
+project:
+  name: Hirefly
+  release: MVP V0
+  generated_on: 2026-07-21
+  documentation_language: en
+  product_type: multi_tenant_b2b_recruiting_platform
+  primary_brand_color: "#04474b"
+
+current_state:
+  assumed_frontend: lovable_generated_mock_prototype
+  backend_connection: may_be_absent
+  instruction: inspect_repository_and_replace_mocks_vertical_slice_by_vertical_slice
+
+runtime:
+  frontend:
+    language: TypeScript
+    framework: React
+    build_tool: Vite
+    styling: [Tailwind_CSS, shadcn_ui]
+    routing: React_Router
+    server_state: TanStack_Query
+    forms: React_Hook_Form
+    validation: Zod
+  backend:
+    platform: Supabase
+    capabilities: [PostgreSQL, Auth, Storage, RLS, RPC, Edge_Functions]
+  orchestration:
+    platform: n8n_Community_Edition
+    ownership: orchestration_only
+  ai:
+    platform: Ollama
+    deployment: local_or_self_hosted
+    output: structured_and_schema_validated
+  document_extraction:
+    platform: Apache_Tika
+  email:
+    protocol: SMTP
+    human_approval_required: true
+  source_control:
+    platform: GitHub_or_GitLab
+    source_of_truth: repository
+
+surfaces:
+  private_dashboard: /app/*
+  public_careers: /careers/:companySlug/*
+
+core_capabilities:
+  - authentication
+  - company_onboarding_and_branding
+  - job_management
+  - evaluation_criteria_and_questions
+  - branded_public_careers_site
+  - public_application_submission
+  - private_resume_storage
+  - resume_text_extraction
+  - structured_candidate_profile
+  - explainable_ai_evaluation
+  - candidate_pipeline
+  - notes_and_activity_history
+  - follow_up_drafts
+  - approved_email_sending
+  - basic_analytics
+
+non_goals_v0:
+  - billing
+  - sso
+  - linkedin_integration
+  - job_board_integrations
+  - whatsapp
+  - bidirectional_email_sync
+  - calendar_and_video_calls
+  - authenticated_candidate_portal
+  - autonomous_interviews
+  - configurable_pipeline_stages
+  - configurable_company_automations
+  - global_talent_pool
+  - cross_job_matching
+  - advanced_reporting
+  - offer_contracts_and_signatures
+  - video_applications
+
+security_invariants:
+  - every_tenant_owned_record_has_company_id
+  - rls_enforced_in_database
+  - public_access_through_controlled_contracts
+  - resumes_bucket_private
+  - signed_urls_short_lived
+  - service_role_never_in_browser
+  - resume_content_treated_as_untrusted
+  - protected_attributes_excluded_from_ai_evaluation
+  - no_automatic_hiring_or_rejection
+  - security_definer_functions_use_fixed_search_path_and_least_privilege
+
+canonical_data_model:
+  identity: [profiles]
+  tenancy: [companies, company_branding, company_members, company_invitations]
+  jobs: [jobs, job_criteria, job_questions]
+  applications: [candidates, applications, application_answers, application_consents, application_stage_history]
+  resumes_and_ai: [resumes, candidate_profiles, ai_evaluations, ai_criterion_scores]
+  collaboration: [candidate_notes, candidate_messages]
+  operations: [activity_logs, processing_jobs]
+
+application_stages:
+  - new
+  - pending_review
+  - shortlisted
+  - contacted
+  - interview
+  - assessment
+  - offer
+  - hired
+  - not_proceeding
+
+build_order:
+  - foundations
+  - jobs_and_public_careers
+  - applications_and_private_storage
+  - resume_processing
+  - candidate_evaluation
+  - recruiting_operations
+  - quality_security_and_observability
+
+quality_gates:
+  required: [format, lint, typecheck, tests, build]
+  database: [migration_replay, rls_tests, tenant_isolation_tests]
+  high_risk_flows: [e2e_public_application, e2e_recruiter_review]

@@ -1,0 +1,21 @@
+# 16 — Glossary
+
+- **Application:** A candidate's submission to one job; stores contact snapshots and pipeline state.
+- **Candidate:** A person represented within one company tenant.
+- **Candidate profile:** Versioned structured interpretation of a resume.
+- **Company:** Internal tenant record.
+- **Company branding:** Public careers identity and slug.
+- **Criterion:** Explicit weighted job requirement used for AI-assisted review.
+- **Criteria version:** Identifier/hash representing the criterion set used in an evaluation.
+- **Edge Function:** Trusted server-side endpoint used for controlled public or privileged operations.
+- **Evaluation:** Versioned AI-assisted comparison between a candidate profile and job criteria.
+- **Human-in-the-loop:** A design in which a person reviews and authorizes employment decisions and communications.
+- **Idempotency key:** Stable key ensuring repeated execution produces one business side effect.
+- **Member:** A user associated with a company and role.
+- **Normalized email:** Canonical lowercased/trimmed representation used for uniqueness.
+- **Processing job:** Durable record of asynchronous work and retry/lock state.
+- **RLS:** PostgreSQL Row Level Security policies enforcing row authorization.
+- **Signed URL:** Time-limited URL granting access to a specific private object.
+- **Tenant:** One company and its isolated records.
+- **Untrusted input:** Data that may contain malicious content or instructions, including resumes and public form input.
+- **Vertical slice:** A complete feature path spanning database, authorization, service, UI, tests, and documentation.

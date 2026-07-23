@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hirefly.local/schemas/processing-job.schema.json",
+  "title": "Hirefly Processing Job Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "jobId",
+    "companyId",
+    "applicationId",
+    "type",
+    "idempotencyKey",
+    "payload"
+  ],
+  "properties": {
+    "jobId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "companyId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "applicationId": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "type": {
+      "enum": [
+        "resume_parse",
+        "candidate_evaluation",
+        "follow_up_draft",
+        "send_email",
+        "application_confirmation"
+      ]
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "payload": {
+      "type": "object"
+    }
+  }
+}
