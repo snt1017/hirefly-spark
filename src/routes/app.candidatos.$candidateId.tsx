@@ -11,6 +11,7 @@ import { getJob } from "@/mocks/jobs";
 import { candidates as seed } from "@/mocks/candidates";
 import { Download, Mail, Star, MapPin, Phone, Linkedin, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { usePostHog } from "@posthog/react";
 
 export const Route = createFileRoute("/app/candidatos/$candidateId")({
   loader: ({ params }) => {
@@ -26,10 +27,15 @@ function CandidateDetail() {
   const { id } = Route.useLoaderData();
   const candidate = useCandidate(id);
   const [note, setNote] = useState("");
+  const posthog = usePostHog();
 
   if (!candidate) return <div className="p-6">Candidato no encontrado.</div>;
   const job = getJob(candidate.jobId);
-  const initials = candidate.name.split(" ").map((n) => n[0]).slice(0, 2).join("");
+  const initials = candidate.name
+    .split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("");
 
   return (
     <>
@@ -37,10 +43,7 @@ function CandidateDetail() {
       <main className="flex-1 space-y-6 p-6">
         <div>
           <Button asChild variant="ghost" size="sm">
-            <Link
-              to="/app/vacantes/$jobId/candidatos"
-              params={{ jobId: candidate.jobId }}
-            >
+            <Link to="/app/vacantes/$jobId/candidatos" params={{ jobId: candidate.jobId }}>
               <ArrowLeft className="mr-2 h-4 w-4" /> Volver a candidatos
             </Link>
           </Button>
@@ -56,11 +59,22 @@ function CandidateDetail() {
                 <h1 className="text-2xl font-semibold text-foreground">{candidate.name}</h1>
                 <p className="text-sm text-muted-foreground">{candidate.headline}</p>
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> {candidate.location}</span>
-                  <span className="flex items-center gap-1"><Mail className="h-3.5 w-3.5" /> {candidate.email}</span>
-                  <span className="flex items-center gap-1"><Phone className="h-3.5 w-3.5" /> {candidate.phone}</span>
+                  <span className="flex items-center gap-1">
+                    <MapPin className="h-3.5 w-3.5" /> {candidate.location}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Mail className="h-3.5 w-3.5" /> {candidate.email}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Phone className="h-3.5 w-3.5" /> {candidate.phone}
+                  </span>
                   {candidate.linkedin && (
-                    <a href={candidate.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-primary hover:underline">
+                    <a
+                      href={candidate.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1 text-primary hover:underline"
+                    >
                       <Linkedin className="h-3.5 w-3.5" /> LinkedIn
                     </a>
                   )}
@@ -68,7 +82,11 @@ function CandidateDetail() {
                 <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
                   <span className="text-muted-foreground">Aplicó a</span>
                   {job && (
-                    <Link to="/app/vacantes/$jobId" params={{ jobId: job.id }} className="font-medium text-primary hover:underline">
+                    <Link
+                      to="/app/vacantes/$jobId"
+                      params={{ jobId: job.id }}
+                      className="font-medium text-primary hover:underline"
+                    >
                       {job.title}
                     </Link>
                   )}
@@ -77,20 +95,45 @@ function CandidateDetail() {
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <CandidateStageSelect value={candidate.stage} onChange={(s) => { setStage(candidate.id, s); toast.success("Etapa actualizada"); }} />
+              <CandidateStageSelect
+                value={candidate.stage}
+                onChange={(s) => {
+                  setStage(candidate.id, s);
+                  posthog.capture("candidate_stage_changed", {
+                    from_stage: candidate.stage,
+                    to_stage: s,
+                    job_id: candidate.jobId,
+                  });
+                  toast.success("Etapa actualizada");
+                }}
+              />
               <Button
                 variant="outline"
-                onClick={() => toast("Esta función estará disponible al conectar el almacenamiento.")}
+                onClick={() =>
+                  toast("Esta función estará disponible al conectar el almacenamiento.")
+                }
               >
                 <Download className="mr-2 h-4 w-4" /> Descargar CV
               </Button>
-              <Button variant="outline" onClick={() => toast("Se abrirá el flujo de contacto (simulado).")}>
+              <Button
+                variant="outline"
+                onClick={() => toast("Se abrirá el flujo de contacto (simulado).")}
+              >
                 <Mail className="mr-2 h-4 w-4" /> Contactar
               </Button>
               <Button
                 variant={candidate.favorite ? "default" : "outline"}
                 size="icon"
-                onClick={() => { toggleFavorite(candidate.id); toast.success(candidate.favorite ? "Retirado de favoritos" : "Marcado como favorito"); }}
+                onClick={() => {
+                  toggleFavorite(candidate.id);
+                  posthog.capture("candidate_favorited", {
+                    favorited: !candidate.favorite,
+                    job_id: candidate.jobId,
+                  });
+                  toast.success(
+                    candidate.favorite ? "Retirado de favoritos" : "Marcado como favorito",
+                  );
+                }}
                 aria-label="Marcar favorito"
               >
                 <Star className={`h-4 w-4 ${candidate.favorite ? "fill-current" : ""}`} />
@@ -111,7 +154,8 @@ function CandidateDetail() {
           <TabsContent value="resumen" className="mt-4">
             <Card>
               <p className="text-sm text-foreground/90">
-                {candidate.name} tiene experiencia como {candidate.headline.toLowerCase()}. Reside en {candidate.location} y aplicó a la vacante de {job?.title ?? "—"}.
+                {candidate.name} tiene experiencia como {candidate.headline.toLowerCase()}. Reside
+                en {candidate.location} y aplicó a la vacante de {job?.title ?? "—"}.
               </p>
             </Card>
           </TabsContent>
@@ -143,22 +187,35 @@ function CandidateDetail() {
 
           <TabsContent value="notas" className="mt-4">
             <Card>
-              <Textarea rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Escribe una nota interna sobre el candidato…" />
+              <Textarea
+                rows={3}
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Escribe una nota interna sobre el candidato…"
+              />
               <div className="mt-2 flex justify-end">
                 <Button
                   size="sm"
                   disabled={!note.trim()}
-                  onClick={() => { addNote(candidate.id, note.trim()); setNote(""); toast.success("Nota agregada"); }}
+                  onClick={() => {
+                    addNote(candidate.id, note.trim());
+                    posthog.capture("candidate_note_added", { job_id: candidate.jobId });
+                    setNote("");
+                    toast.success("Nota agregada");
+                  }}
                 >
                   Agregar nota
                 </Button>
               </div>
               <div className="mt-4 space-y-3">
-                {candidate.notes.length === 0 && <p className="text-sm text-muted-foreground">Aún no hay notas.</p>}
+                {candidate.notes.length === 0 && (
+                  <p className="text-sm text-muted-foreground">Aún no hay notas.</p>
+                )}
                 {candidate.notes.map((n) => (
                   <div key={n.id} className="rounded-lg border border-border p-3">
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>{n.author}</span><span>{n.date}</span>
+                      <span>{n.author}</span>
+                      <span>{n.date}</span>
                     </div>
                     <p className="mt-1 text-sm text-foreground/90">{n.text}</p>
                   </div>

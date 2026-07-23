@@ -13,6 +13,7 @@ import { getJob } from "@/mocks/jobs";
 import { MoreHorizontal, Users, ExternalLink } from "lucide-react";
 import { useCompany } from "@/lib/company-store";
 import { toast } from "sonner";
+import { usePostHog } from "@posthog/react";
 
 export const Route = createFileRoute("/app/vacantes/$jobId/")({
   loader: ({ params }) => {
@@ -28,20 +29,25 @@ function JobDetail() {
   const { job } = Route.useLoaderData();
   const company = useCompany();
   const navigate = useNavigate();
+  const posthog = usePostHog();
 
   return (
     <>
       <AppHeader title={job.title} />
       <main className="flex-1 space-y-6 p-6">
         <div>
-          <Link to="/app/vacantes" className="text-sm text-muted-foreground hover:text-foreground">← Volver a vacantes</Link>
+          <Link to="/app/vacantes" className="text-sm text-muted-foreground hover:text-foreground">
+            ← Volver a vacantes
+          </Link>
         </div>
         <PageHeader
           title={job.title}
           description={`${job.area} · ${job.location} · ${job.modality} · ${job.contractType}`}
           actions={
             <div className="flex flex-wrap gap-2">
-              <Button variant="outline" onClick={() => toast("Función simulada: Editar vacante")}>Editar</Button>
+              <Button variant="outline" onClick={() => toast("Función simulada: Editar vacante")}>
+                Editar
+              </Button>
               <Button asChild>
                 <Link to="/app/vacantes/$jobId/candidatos" params={{ jobId: job.id }}>
                   <Users className="mr-2 h-4 w-4" /> Ver candidatos ({job.candidates})
@@ -49,12 +55,47 @@ function JobDetail() {
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="icon"><MoreHorizontal className="h-4 w-4" /></Button>
+                  <Button variant="outline" size="icon">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => toast.success("Vacante pausada")}>Pausar</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => toast.success("Vacante cerrada")}>Cerrar</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => toast.success("Vacante duplicada")}>Duplicar</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      posthog.capture("job_status_changed", {
+                        action: "paused",
+                        job_id: job.id,
+                        job_area: job.area,
+                      });
+                      toast.success("Vacante pausada");
+                    }}
+                  >
+                    Pausar
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      posthog.capture("job_status_changed", {
+                        action: "closed",
+                        job_id: job.id,
+                        job_area: job.area,
+                      });
+                      toast.success("Vacante cerrada");
+                    }}
+                  >
+                    Cerrar
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      posthog.capture("job_status_changed", {
+                        action: "duplicated",
+                        job_id: job.id,
+                        job_area: job.area,
+                      });
+                      toast.success("Vacante duplicada");
+                    }}
+                  >
+                    Duplicar
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() =>
                       navigate({
@@ -79,15 +120,21 @@ function JobDetail() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2 space-y-6">
-            <Section title="Descripción"><p className="text-sm text-foreground/90">{job.description}</p></Section>
+            <Section title="Descripción">
+              <p className="text-sm text-foreground/90">{job.description}</p>
+            </Section>
             <Section title="Responsabilidades">
               <ul className="list-disc pl-5 text-sm text-foreground/90 space-y-1">
-                {job.responsibilities.map((r: string) => <li key={r}>{r}</li>)}
+                {job.responsibilities.map((r: string) => (
+                  <li key={r}>{r}</li>
+                ))}
               </ul>
             </Section>
             <Section title="Requisitos">
               <ul className="list-disc pl-5 text-sm text-foreground/90 space-y-1">
-                {job.requirements.map((r: string) => <li key={r}>{r}</li>)}
+                {job.requirements.map((r: string) => (
+                  <li key={r}>{r}</li>
+                ))}
               </ul>
             </Section>
           </div>
