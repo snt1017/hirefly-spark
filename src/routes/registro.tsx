@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { HireflyLogo } from "@/components/HireflyLogo";
 import { registerAccount, RegistrationError } from "@/services/auth";
 import { toast } from "sonner";
+import { usePostHog } from "@posthog/react";
 
 const schema = z
   .object({
@@ -41,6 +42,7 @@ function Registro() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const posthog = usePostHog();
   const form = useForm<Values>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -64,6 +66,12 @@ function Registro() {
         password: v.password,
       });
 
+      posthog.identify(v.email, { email: v.email, company: v.company });
+      posthog.capture("user_registered", {
+        requires_email_confirmation: result.requiresEmailConfirmation,
+        company: v.company,
+      });
+
       if (result.requiresEmailConfirmation) {
         toast.success("Revisa tu correo para confirmar tu cuenta.");
         navigate({ to: "/iniciar-sesion" });
@@ -73,6 +81,7 @@ function Registro() {
       toast.success("Cuenta creada exitosamente");
       navigate({ to: "/app" });
     } catch (error) {
+      posthog.captureException(error instanceof Error ? error : new Error(String(error)));
       setSubmitError(
         error instanceof RegistrationError
           ? error.message

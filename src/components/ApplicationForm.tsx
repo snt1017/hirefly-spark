@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Upload } from "lucide-react";
+import { usePostHog } from "@posthog/react";
 
 const schema = z.object({
   name: z.string().min(2, "Ingresa tu nombre completo"),
@@ -17,7 +18,9 @@ const schema = z.object({
   linkedin: z.string().url("URL inválida").or(z.literal("")),
   portfolio: z.string().url("URL inválida").or(z.literal("")),
   motivation: z.string().min(20, "Cuéntanos un poco más (mínimo 20 caracteres)"),
-  consent: z.literal(true, { errorMap: () => ({ message: "Debes aceptar el tratamiento de datos" }) }),
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "Debes aceptar el tratamiento de datos" }),
+  }),
 });
 
 export type ApplicationValues = z.infer<typeof schema>;
@@ -31,6 +34,7 @@ export function ApplicationForm({
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const posthog = usePostHog();
 
   const form = useForm<ApplicationValues>({
     resolver: zodResolver(schema),
@@ -46,9 +50,15 @@ export function ApplicationForm({
     },
   });
 
-  const submit = async () => {
+  const submit = async (v: ApplicationValues) => {
     setSubmitting(true);
     await new Promise((r) => setTimeout(r, 700));
+    posthog.capture("job_application_submitted", {
+      has_linkedin: !!v.linkedin,
+      has_portfolio: !!v.portfolio,
+      has_resume: !!file,
+      location: v.location,
+    });
     setSubmitting(false);
     onSubmit();
   };
@@ -80,7 +90,9 @@ export function ApplicationForm({
         <Label>Hoja de vida (PDF o DOCX)</Label>
         <label className="flex cursor-pointer items-center gap-3 rounded-md border border-dashed border-input bg-background px-4 py-3 text-sm text-muted-foreground hover:bg-accent">
           <Upload className="h-4 w-4" />
-          <span>{file ? `${file.name} · ${Math.round(file.size / 1024)} KB` : "Selecciona un archivo"}</span>
+          <span>
+            {file ? `${file.name} · ${Math.round(file.size / 1024)} KB` : "Selecciona un archivo"}
+          </span>
           <input
             type="file"
             accept=".pdf,.doc,.docx"
@@ -93,15 +105,24 @@ export function ApplicationForm({
         </p>
       </div>
 
-      <Field label="¿Por qué te interesa esta posición?" error={form.formState.errors.motivation?.message}>
-        <Textarea rows={4} {...form.register("motivation")} placeholder="Cuéntanos qué te motiva…" />
+      <Field
+        label="¿Por qué te interesa esta posición?"
+        error={form.formState.errors.motivation?.message}
+      >
+        <Textarea
+          rows={4}
+          {...form.register("motivation")}
+          placeholder="Cuéntanos qué te motiva…"
+        />
       </Field>
 
       <div className="flex items-start gap-2">
         <Checkbox
           id="consent"
           checked={form.watch("consent") as unknown as boolean}
-          onCheckedChange={(v) => form.setValue("consent", (v === true) as unknown as true, { shouldValidate: true })}
+          onCheckedChange={(v) =>
+            form.setValue("consent", (v === true) as unknown as true, { shouldValidate: true })
+          }
         />
         <div>
           <Label htmlFor="consent" className="text-sm font-normal">

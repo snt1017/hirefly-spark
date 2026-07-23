@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { PostHogProvider, usePostHog } from "@posthog/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -38,9 +39,11 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const posthog = usePostHog();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
+    posthog.captureException(error);
+  }, [error, posthog]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -102,13 +105,39 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const posthogKey = import.meta.env.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN as string | undefined;
+  const posthogHost = import.meta.env.VITE_PUBLIC_POSTHOG_HOST as string | undefined;
+
+  if (import.meta.env.DEV && !posthogKey) {
+    console.error(
+      "VITE_PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once VITE_PUBLIC_POSTHOG_PROJECT_TOKEN is configured",
+    );
+  }
+
+  const content = posthogKey ? (
+    <PostHogProvider
+      apiKey={posthogKey}
+      options={{
+        api_host: "/ingest",
+        ui_host: posthogHost || "https://us.posthog.com",
+        defaults: "2025-05-24",
+        capture_exceptions: true,
+        debug: import.meta.env.DEV,
+      }}
+    >
+      {children}
+    </PostHogProvider>
+  ) : (
+    children
+  );
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        {content}
         <Scripts />
       </body>
     </html>

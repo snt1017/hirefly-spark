@@ -17,6 +17,7 @@ import { useCompany } from "@/lib/company-store";
 import { demoUser } from "@/mocks/company";
 import { signOut } from "@/lib/session";
 import { toast } from "sonner";
+import { usePostHog } from "@posthog/react";
 
 const items: { title: string; url: string; icon: typeof Home; exact?: boolean }[] = [
   { title: "Inicio", url: "/app", icon: Home, exact: true },
@@ -29,6 +30,7 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const company = useCompany();
   const navigate = useNavigate();
+  const posthog = usePostHog();
 
   const isActive = (url: string, exact?: boolean) =>
     exact ? pathname === url : pathname.startsWith(url);
@@ -72,6 +74,8 @@ export function AppSidebar() {
           </div>
           <button
             onClick={() => {
+              posthog.capture("user_signed_out");
+              posthog.reset();
               signOut();
               toast.success("Sesión cerrada");
               navigate({ to: "/" });

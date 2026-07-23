@@ -1,8 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { PublicCareersHeader } from "@/components/PublicCareersHeader";
 import { useCompany } from "@/lib/company-store";
 import { getJob } from "@/mocks/jobs";
 import { MapPin, Briefcase, Clock, ArrowLeft } from "lucide-react";
+import { usePostHog } from "@posthog/react";
 
 export const Route = createFileRoute("/empresas/$companySlug/empleos/$jobSlug/")({
   loader: ({ params }) => {
@@ -17,6 +19,17 @@ export const Route = createFileRoute("/empresas/$companySlug/empleos/$jobSlug/")
 function PublicJobDetail() {
   const { job } = Route.useLoaderData();
   const company = useCompany();
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    posthog.capture("public_job_viewed", {
+      job_id: job.id,
+      job_area: job.area,
+      job_modality: job.modality,
+      company_slug: company.slug,
+    });
+  }, [posthog, job.id, job.area, job.modality, company.slug]);
+
   return (
     <div className="min-h-screen bg-background">
       <PublicCareersHeader company={company} />
@@ -30,11 +43,22 @@ function PublicJobDetail() {
         </Link>
         <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight" style={{ color: company.secondaryColor }}>{job.title}</h1>
+            <h1
+              className="text-3xl font-semibold tracking-tight"
+              style={{ color: company.secondaryColor }}
+            >
+              {job.title}
+            </h1>
             <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5" /> {job.area}</span>
-              <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> {job.location} · {job.modality}</span>
-              <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> {job.contractType}</span>
+              <span className="flex items-center gap-1">
+                <Briefcase className="h-3.5 w-3.5" /> {job.area}
+              </span>
+              <span className="flex items-center gap-1">
+                <MapPin className="h-3.5 w-3.5" /> {job.location} · {job.modality}
+              </span>
+              <span className="flex items-center gap-1">
+                <Clock className="h-3.5 w-3.5" /> {job.contractType}
+              </span>
             </div>
           </div>
           <Link
@@ -48,20 +72,28 @@ function PublicJobDetail() {
         </div>
 
         <div className="mt-8 space-y-8">
-          <Section title="Descripción"><p className="text-foreground/90">{job.description}</p></Section>
+          <Section title="Descripción">
+            <p className="text-foreground/90">{job.description}</p>
+          </Section>
           <Section title="Responsabilidades">
             <ul className="list-disc space-y-1 pl-5 text-foreground/90">
-              {job.responsibilities.map((r: string) => <li key={r}>{r}</li>)}
+              {job.responsibilities.map((r: string) => (
+                <li key={r}>{r}</li>
+              ))}
             </ul>
           </Section>
           <Section title="Requisitos">
             <ul className="list-disc space-y-1 pl-5 text-foreground/90">
-              {job.requirements.map((r: string) => <li key={r}>{r}</li>)}
+              {job.requirements.map((r: string) => (
+                <li key={r}>{r}</li>
+              ))}
             </ul>
           </Section>
           <Section title="Beneficios">
             <ul className="list-disc space-y-1 pl-5 text-foreground/90">
-              {job.benefits.map((r: string) => <li key={r}>{r}</li>)}
+              {job.benefits.map((r: string) => (
+                <li key={r}>{r}</li>
+              ))}
             </ul>
           </Section>
 
